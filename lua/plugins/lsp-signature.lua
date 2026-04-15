@@ -1,0 +1,23 @@
+-- -- ============================================================
+-- -- LSP Signature Help
+-- -- ============================================================
+-- require("lsp_signature").setup({
+-- 	bind = true,
+-- 	handler_opts = {
+-- 		border = "rounded",
+-- 	},
+-- 	floating_window = true,
+-- 	floating_window_above_cur_line = true,
+-- 	hint_enable = false, -- virtual text hints (disable if you find it distracting)
+-- 	hint_prefix = "🐼 ",
+-- 	hi_parameter = "LspSignatureActiveParameter",
+-- 	always_trigger = false,
+-- 	auto_close_after = nil,
+-- 	toggle_key = nil,
+-- 	select_signature_key = nil,
+-- 	move_cursor_key = nil,
+-- 	fix_pos = false,
+-- 	transparency = nil,
+-- 	timer_interval = 200,
+-- 	toggle_key_flip_floatwin_setting = false,
+-- })
