@@ -4,6 +4,7 @@
 
 -- 1. Foundational / UI dependencies
 require("plugins.devicons")
+require("plugins.dashboard")
 
 -- 2. Syntax & Text objects ()
 require("plugins.treesitter")
@@ -27,7 +28,7 @@ require("plugins.indent-blankline")
 require("plugins.which-key")
 
 -- 7. Statusline / Optional UI ()
--- require("plugins.lualine")
+require("plugins.lualine")
 
 -- 8. File explorer (moved to init.lua)
 -- require("plugins.nvimtree")

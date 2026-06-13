@@ -3,7 +3,7 @@
 
 local colors = {
 	-- Backgrounds (paper-like, stable)
-	bg = "#faf8f5", -- softer base white
+	bg = "#f5f2ee", -- softer base white
 	bg1 = "#f0ede8", -- subtle first tier
 	bg2 = "#e6e2dd", -- gentle highlight
 	bg3 = "#d8d3cc", -- borders/subtle UI
