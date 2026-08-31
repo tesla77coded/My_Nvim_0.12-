@@ -3,7 +3,7 @@
 
 local colors = {
 	-- Backgrounds (cool dark, calm)
-	bg = "#1c1e26", -- deep blue-gray base
+	bg = "#1a1714", -- deep blue-gray base
 	bg1 = "#232530", -- subtle first tier
 	bg2 = "#2e303e", -- gentle highlight
 	bg3 = "#3e4057", -- borders/subtle UI
@@ -157,9 +157,8 @@ hl("@string", { fg = colors.green_muted })
 hl("@type", { fg = colors.yellow_muted })
 hl("@constant", { fg = colors.quartz })
 hl("@variable", { fg = colors.fg1 })
-hl("@decorator", { fg = colors.fg2, bold= true })
-hl("@attribute", { fg = colors.fg2, bold= true })
-
+hl("@decorator", { fg = colors.fg2, bold = true })
+hl("@attribute", { fg = colors.fg2, bold = true })
 
 -- ========================
 -- Diagnostics

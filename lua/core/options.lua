@@ -11,13 +11,14 @@ opt.number = true
 opt.relativenumber = true
 opt.cursorline = true
 opt.winborder = "rounded"
+opt.smoothscroll = true
 
 opt.termguicolors = true
 opt.signcolumn = "yes"
 
 opt.cmdheight = 0
 
-opt.scrolloff = 4
+opt.scrolloff = 1
 opt.wrap = false
 
 opt.splitbelow = true
@@ -33,11 +34,10 @@ require("vim._core.ui2").enable({
 -- ============================================================
 -- Cursor (block everywhere, color changes per mode)
 -- ============================================================
-
 vim.opt.guicursor = table.concat({
-	"n-v-c:block-Cursor", -- Normal, Visual, Command
-	"i-ci:block-CursorInsert", -- Insert
-	"r-cr:block-CursorReplace", -- Replace
+	"n-v-c:block-Cursor",
+	"i-ci:block-CursorInsert-blinkwait700-blinkon800-blinkoff500", -- slower blink cycle
+	"r-cr:block-CursorReplace",
 }, ",")
 
 -- ============================================================

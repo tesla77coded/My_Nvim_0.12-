@@ -1,3 +1,8 @@
+-- Note to self: To update neovide do as follows:
+-- cd ~/.src/neovide
+-- git pull
+-- cargo install --path .
+
 -- ============================================================
 -- Neovim 0.12+ Optimized Init (Native vim.pack)
 -- ============================================================
@@ -198,6 +203,6 @@ pcall(vim.cmd.colorscheme, "custom") -- Change to your preferred colorscheme
 -- Utility Commands
 -- ============================================================
 -- Update all plugins
-vim.keymap.set("n", "<leader>pu", function()
+vim.keymap.set("n", "<leader>up", function()
 	vim.pack.update()
 end, { desc = "Update all plugins (vim.pack)", silent = true })
