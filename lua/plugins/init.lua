@@ -23,7 +23,7 @@ require("plugins.lsp")
 require("plugins.completion")
 require("plugins.conform")
 require("plugins.indent-blankline")
-
+require("plugins.hlslens")
 -- 6. Which-key ()
 require("plugins.which-key")
 

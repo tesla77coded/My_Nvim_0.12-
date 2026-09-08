@@ -1,3 +1,6 @@
+vim.o.completeopt = "menu,menuone,noselect,popup"
+vim.opt.shortmess:append("c")
+
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 

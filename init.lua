@@ -1,7 +1,8 @@
 -- Note to self: To update neovide do as follows:
 -- cd ~/.src/neovide
 -- git pull
--- cargo install --path .
+--
+-- cargo install --path .-main
 
 -- ============================================================
 -- Neovim 0.12+ Optimized Init (Native vim.pack)
@@ -36,6 +37,11 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/maxmx03/solarized.nvim" },
+	{ src = "https://github.com/sainnhe/everforest" },
+	{ src = "https://github.com/rebelot/kanagawa.nvim" },
+	{ src = "https://github.com/rose-pine/neovim" },
+	{ src = "https://github.com/sainnhe/gruvbox-material" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/hrsh7th/nvim-cmp" },
@@ -53,6 +59,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-tree/nvim-tree.lua" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	-- { src = "https://github.com/j-hui/fidget.nvim" },
+	{ src = "https://github.com/kevinhwang91/nvim-hlslens" },
 	{ src = "https://github.com/rcarriga/nvim-notify" },
 	{ src = "https://github.com/folke/which-key.nvim" },
 	{ src = "https://github.com/tpope/vim-sleuth" },
@@ -120,8 +127,11 @@ pcall(require, "plugins")
 -- ============================================================
 -- Colorscheme
 -- ============================================================
-vim.opt.background = "light"
-pcall(vim.cmd.colorscheme, "custom") -- Change to your preferred colorscheme
+vim.opt.background = "dark"
+-- vim.g.everforest_background = "soft"
+-- vim.g.gruvbox_material_foreground = "mix"
+-- vim.g.gruvbox_material_background = "medium"
+pcall(vim.cmd.colorscheme, "gruvbox-material") -- Change to your preferred colorscheme
 
 -- -- === NVIM-TREE HIGHLIGHTS - Respect your custom colorscheme ===
 -- local colors = {

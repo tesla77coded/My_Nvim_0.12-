@@ -19,17 +19,17 @@ opt.signcolumn = "yes"
 opt.cmdheight = 0
 
 opt.scrolloff = 1
-opt.wrap = false
+opt.wrap = true
 
 opt.splitbelow = true
 opt.splitright = true
 
-require("vim._core.ui2").enable({
-	enable = true,
-	msg = {
-		targets = "cmd",
-	},
-})
+-- require("vim._core.ui2").enable({
+-- 	enable = true,
+-- 	-- msg = {
+-- 	-- 	targets = "cmd",
+-- 	-- },
+-- })
 
 -- ============================================================
 -- Cursor (block everywhere, color changes per mode)

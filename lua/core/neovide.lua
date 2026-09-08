@@ -7,7 +7,7 @@ if not vim.g.neovide then
 end
 
 -- Font
-vim.o.guifont = "Iosevka Nerd Font:h17"
+vim.o.guifont = "PlemolJP Console NF Medium:h17"
 
 -- Spacing
 vim.o.linespace = 1

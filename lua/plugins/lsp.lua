@@ -1,12 +1,14 @@
 -- ============================================================
--- LSP (Neovim 0.12 native)
+-- LSP (Neovim 0.12 native) — Node-free except JS/TS
 -- ============================================================
+vim.pack.add({
+	{ src = "https://github.com/neovim/nvim-lspconfig" },
+})
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Setup Mason
 require("mason").setup()
 local mason_registry = require("mason-registry")
-
 local function ensure_installed(servers)
 	for _, name in ipairs(servers) do
 		local ok, pkg = pcall(mason_registry.get_package, name)
@@ -15,39 +17,41 @@ local function ensure_installed(servers)
 		end
 	end
 end
-
 ensure_installed({
-	"lua-language-server",
-	"pyright",
-	"vtsls",
-	"ruff",
-})
-
--- Install servers via vim.pack (if needed)
-vim.pack.add({
-	{ src = "https://github.com/neovim/nvim-lspconfig" },
+	"lua-language-server", -- Lua, native
+	"ruff", -- Rust, Python lint/format
+	"ty", -- Rust, Python completions/nav
+	"biome", -- Rust, JS/TS lint/format
+	"typescript-language-server", -- Node, JS/TS completions/nav (accepted tradeoff)
 })
 
 -- ============================================================
--- LSP Attach (keymaps per buffer)
+-- Root directory resolver — never falls back to nil
+-- ============================================================
+local function root_with_fallback(markers)
+	return function(bufnr, on_dir)
+		local fname = vim.api.nvim_buf_get_name(bufnr)
+		local root = vim.fs.root(fname, markers)
+		on_dir(root or vim.fn.getcwd())
+	end
+end
+
+-- ============================================================
+-- LspAttach (keymaps per buffer)
 -- ============================================================
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local buf = event.buf
-		-- Attach lsp_signature when LSP attaches
 		require("lsp_signature").on_attach({
 			bind = true,
-			handler_opts = {
-				border = "rounded",
-			},
+			handler_opts = { border = "rounded" },
 			floating_window = true,
 			floating_window_above_cur_line = true,
-			hint_enable = false, -- disable virtual text hints (can be distracting)
+			hint_enable = false,
 			hint_prefix = "🐼 ",
 			hi_parameter = "LspSignatureActiveParameter",
 			max_height = 12,
 			max_width = 80,
-			transparency = nil,
 			timer_interval = 200,
 		}, buf)
 
@@ -70,44 +74,58 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- ============================================================
 -- Configure servers
 -- ============================================================
-
--- Lua
 vim.lsp.config("lua_ls", {
 	capabilities = capabilities,
 	settings = {
-		Lua = {
-			diagnostics = { globals = { "vim" } },
-		},
+		Lua = { diagnostics = { globals = { "vim" } } },
 	},
+	root_dir = root_with_fallback({ ".luarc.json", ".luarc.jsonc", ".git" }),
 })
 
-vim.lsp.config("pyright", {
+vim.lsp.config("ruff", {
+	capabilities = capabilities,
+	init_options = {
+		settings = { lineLength = 88 },
+	},
+	root_dir = root_with_fallback({ "pyproject.toml", "setup.py", "setup.cfg", "ruff.toml", ".ruff.toml", ".git" }),
+})
+
+vim.lsp.config("ty", {
 	capabilities = capabilities,
 	settings = {
-		python = {
-			analysis = {
-				autoSearchPaths = true,
-				diagnosticMode = "openFilesOnly", -- only check open files
-				useLibraryCodeForTypes = true,
-				typeCheckingMode = "basic", -- change to "off" if you want it even lighter
-			},
+		ty = {
+			completions = { autoImport = true },
+			showSyntaxErrors = false,
 		},
 	},
+	root_dir = root_with_fallback({ "pyproject.toml", "ty.toml", ".git" }),
 })
 
-vim.lsp.config("ruff", {})
-
--- TypeScript / JavaScript
-vim.lsp.config("vtsls", {
+vim.lsp.config("biome", {
 	capabilities = capabilities,
+	root_dir = root_with_fallback({ "biome.json", "biome.jsonc", "package.json", ".git" }),
 })
 
--- Enable servers ()
+vim.lsp.config("ts_ls", {
+	capabilities = capabilities,
+	settings = {
+		typescript = { format = { enable = false } },
+		javascript = { format = { enable = false } },
+	},
+	init_options = {
+		preferences = {
+			includeCompletionsForModuleExports = true,
+		},
+	},
+	root_dir = root_with_fallback({ "tsconfig.json", "jsconfig.json", "package.json", ".git" }),
+})
+
 vim.lsp.enable({
 	"lua_ls",
-	"pyright", -- ← new one
-	"vtsls",
 	"ruff",
+	"ty",
+	"biome",
+	"ts_ls",
 })
 
 -- ============================================================
@@ -118,7 +136,6 @@ vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
 	config.border = "rounded"
 	return vim.lsp.handlers.hover(_, result, ctx, config)
 end
-
 vim.lsp.handlers["textDocument/signatureHelp"] = function(_, result, ctx, config)
 	config = config or {}
 	config.border = "rounded"
