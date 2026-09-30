@@ -18,10 +18,10 @@ local function ensure_installed(servers)
 	end
 end
 ensure_installed({
-	"lua-language-server", -- Lua, native
-	"ruff", -- Rust, Python lint/format
-	"ty", -- Rust, Python completions/nav
-	"biome", -- Rust, JS/TS lint/format
+	"lua-language-server",     -- Lua, native
+	"ruff",                    -- Rust, Python lint/format
+	"ty",                      -- Rust, Python completions/nav
+	"biome",                   -- Rust, JS/TS lint/format
 	"typescript-language-server", -- Node, JS/TS completions/nav (accepted tradeoff)
 })
 

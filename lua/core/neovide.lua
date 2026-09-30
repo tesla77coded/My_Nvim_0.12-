@@ -10,7 +10,7 @@ end
 vim.o.guifont = "PlemolJP Console NF Medium:h17"
 
 -- Spacing
-vim.o.linespace = 1
+vim.o.linespace = 0
 
 -- Title
 vim.o.title = true
@@ -18,9 +18,9 @@ vim.o.titlestring = "Neovide"
 
 -- Cursor
 vim.g.neovide_cursor_antialiasing = true
-vim.g.neovide_cursor_animation_length = 0.1 -- normal-mode jumps: quick, visible glide
+vim.g.neovide_cursor_animation_length = 0.1        -- normal-mode jumps: quick, visible glide
 vim.g.neovide_cursor_short_animation_length = 0.07 -- typing: short, smooth glide (VSCode-like, not instant)
-vim.g.neovide_cursor_trail_size = 0.35 -- lower = smoother glide with a soft trail (1.0 = no smoothing)
+vim.g.neovide_cursor_trail_size = 0.35             -- lower = smoother glide with a soft trail (1.0 = no smoothing)
 vim.g.neovide_cursor_short_animation_length = 0.15
 vim.g.neovide_cursor_animate_in_insert_mode = true -- keep animation on while typing
 vim.g.neovide_cursor_animate_command_line = true

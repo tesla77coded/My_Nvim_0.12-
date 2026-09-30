@@ -82,7 +82,7 @@ require("nvim-tree").setup({
 		side = "right",
 	},
 	renderer = {
-		highlight_git = true, -- use git highlight groups
+		highlight_git = true,      -- use git highlight groups
 		highlight_diagnostics = true,
 		highlight_opened_files = "name", -- or "icon" / "name" / "all" if you want
 		highlight_modified = "none",
@@ -130,7 +130,8 @@ pcall(require, "plugins")
 vim.opt.background = "dark"
 -- vim.g.everforest_background = "soft"
 -- vim.g.gruvbox_material_foreground = "mix"
--- vim.g.gruvbox_material_background = "medium"
+-- vim.g.gruvbox_material_background = 2
+vim.g.gruvbox_material_transparent_background = 2
 pcall(vim.cmd.colorscheme, "gruvbox-material") -- Change to your preferred colorscheme
 
 -- -- === NVIM-TREE HIGHLIGHTS - Respect your custom colorscheme ===

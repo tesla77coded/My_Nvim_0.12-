@@ -42,6 +42,53 @@ map("n", "<leader>e", function()
 		})
 	end
 end, opts("Explorer toggle"))
+
+-- ============================================================
+-- Scrolling (half a window at a time, works past end of file)
+-- ============================================================
+
+-- Unlike the built-in <C-d>/<C-u>, this behaves like <C-e>/<C-y>:
+-- it keeps scrolling even when the last line is already visible,
+-- so you can push the end of the file up the screen.
+local function scroll_half(direction)
+	local lines = math.max(1, math.floor(vim.api.nvim_win_get_height(0) / 2))
+	-- \5 = <C-e> (scroll down), \25 = <C-y> (scroll up)
+	local key = direction > 0 and "\5" or "\25"
+	vim.cmd("normal! " .. lines .. key)
+end
+
+map({ "n", "x" }, "<C-d>", function()
+	scroll_half(1)
+end, opts("Scroll Half Page Down (past EOF)"))
+
+map({ "n", "x" }, "<C-u>", function()
+	scroll_half(-1)
+end, opts("Scroll Half Page Up"))
+
+-- Remember scroll position (and cursor) per window+buffer, so switching
+-- buffers and coming back doesn't lose your scrolled view.
+local saved_views = {}
+local view_group = vim.api.nvim_create_augroup("RestoreBufferView", { clear = true })
+
+vim.api.nvim_create_autocmd("BufLeave", {
+	group = view_group,
+	callback = function(args)
+		local win = vim.api.nvim_get_current_win()
+		saved_views[win .. ":" .. args.buf] = vim.fn.winsaveview()
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	group = view_group,
+	callback = function(args)
+		local win = vim.api.nvim_get_current_win()
+		local view = saved_views[win .. ":" .. args.buf]
+		if view then
+			vim.fn.winrestview(view)
+		end
+	end,
+})
+
 -- ============================================================
 -- Line movement
 -- ============================================================

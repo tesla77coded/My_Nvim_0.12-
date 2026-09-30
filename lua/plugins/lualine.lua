@@ -11,6 +11,7 @@ function empty:draw(default_highlight)
 	self:apply_section_separators()
 	return self.status
 end
+
 -- clock
 local function clock()
 	local t = os.date("*t")
@@ -40,7 +41,7 @@ lualine.setup({
 	sections = {
 		lualine_a = {
 			{ "mode", separator = { right = "" } },
-			{ empty, separator = { right = "" } },
+			{ empty,  separator = { right = "" } },
 		},
 		lualine_b = {
 			{
@@ -59,6 +60,7 @@ lualine.setup({
 				recording_status,
 				color = { fg = "#ff5555", gui = "bold" },
 			},
+			{ "location" },
 		},
 		lualine_x = {
 			{ "filetype", icon_only = true },
